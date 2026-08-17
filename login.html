@@ -4,20 +4,20 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>WinBD Pro | Login</title>
 <meta name="description" content="WinBD Pro login page.">
-<style>*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;font-family:Segoe UI,Arial,sans-serif;background:#f6f7f9;color:#222}.card{width:min(420px,92vw);background:#fff;border:1px solid #e5e7eb;border-radius:18px;padding:30px;box-shadow:0 12px 35px rgba(0,0,0,.08)}.logo{text-align:center;font-size:30px;font-weight:800;margin-bottom:8px}.logo span{color:#0fa66a}.sub{text-align:center;color:#6b7280;margin:0 0 25px}label{display:block;font-weight:600;margin:14px 0 7px}input{width:100%;padding:13px 14px;border:1px solid #d1d5db;border-radius:10px;font-size:15px;outline:none}input:focus{border-color:#0fa66a;box-shadow:0 0 0 3px rgba(15,166,106,.12)}button{width:100%;border:0;border-radius:10px;padding:14px;margin-top:22px;background:#0b6f45;color:#fff;font-weight:700;font-size:15px;cursor:pointer}button:hover{background:#095c3a}button:disabled{opacity:.6;cursor:wait}.links{text-align:center;margin-top:18px}.links a{color:#0b6f45;text-decoration:none}.back{display:block;text-align:center;margin-top:12px;color:#666;text-decoration:none;font-size:14px}.note{font-size:12px;color:#777;margin-top:14px;text-align:center}#msg{margin-top:12px;text-align:center;font-size:14px;color:#b42318}</style>
+<style>*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;font-family:Inter,Segoe UI,Arial,sans-serif;background:radial-gradient(circle at 50% 0,#27100e,#050505 48%);color:#fff;padding:20px}.shell{width:min(440px,100%)}.brand{text-align:center;margin-bottom:16px}.brand img{width:170px;height:120px;object-fit:contain}.card{background:linear-gradient(180deg,rgba(25,25,25,.98),rgba(8,8,8,.98));border:1px solid #343434;border-radius:22px;padding:26px;box-shadow:0 20px 70px #000}.title{font-size:26px;font-weight:800;text-align:center;margin:0}.sub{text-align:center;color:#aaa;margin:7px 0 24px}label{display:block;font-weight:700;margin:14px 0 7px}input{width:100%;padding:14px;border:1px solid #3c3c3c;border-radius:12px;background:#151515;color:#fff;font-size:16px;outline:none}input:focus{border-color:#e31b16;box-shadow:0 0 0 3px #e31b1625}.btn{width:100%;border:0;border-radius:12px;padding:14px;margin-top:20px;background:linear-gradient(90deg,#c90000,#f12a20);color:#fff;font-size:16px;font-weight:800;cursor:pointer}.btn:disabled{opacity:.6;cursor:wait}.links{text-align:center;color:#aaa;margin-top:18px}.links a,.back{color:#ffd21c;text-decoration:none;font-weight:700}.back{display:block;text-align:center;margin-top:14px}.msg{text-align:center;min-height:20px;margin-top:12px;color:#ff827c;font-size:14px}.hint{font-size:12px;color:#777;text-align:center;margin-top:15px;line-height:1.5}</style>
 </head>
-<body><main class="card"><div class="logo"><span>WINBD</span> PRO</div><p class="sub">Login to your account</p>
-<form id="loginForm"><label for="phone">Mobile number</label><input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+8801XXXXXXXXX" required><label for="password">Password</label><input id="password" name="password" type="password" autocomplete="current-password" placeholder="Enter password" required><button id="submitBtn" type="submit">Login</button><div id="msg" role="status"></div></form>
-<div class="links">Don't have an account? <a href="/register">Register</a></div><a class="back" href="/">← Back to WinBD Pro</a><p class="note">Your password is handled by Supabase Auth and is never stored in this page's source code.</p></main>
+<body><main class="shell"><div class="brand"><img src="/assets/winbd-pro-logo.svg" alt="WINBD PRO"></div><section class="card"><h1 class="title">প্রবেশ করুন</h1><p class="sub">মোবাইল নম্বর ও পাসওয়ার্ড দিয়ে সরাসরি আপনার অ্যাকাউন্টে যান</p>
+<form id="loginForm"><label for="phone">মোবাইল নম্বর</label><input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="01XXXXXXXXX" required><label for="password">পাসওয়ার্ড</label><input id="password" name="password" type="password" autocomplete="current-password" placeholder="আপনার পাসওয়ার্ড" required><button class="btn" id="submitBtn" type="submit">প্রবেশ করুন</button><div class="msg" id="msg" role="status"></div></form>
+<div class="links">অ্যাকাউন্ট নেই? <a href="/register">নিবন্ধন করুন</a></div><a class="back" href="/">← হোমে ফিরে যান</a><p class="hint">OTP বা অতিরিক্ত ধাপ এই পেজে নেই। Supabase Auth-এর phone-confirmation setting চালু থাকলে সেটি আলাদাভাবে বন্ধ করতে হবে।</p></section></main>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="/supabase.js"></script>
 <script>
 const client=window.winbdSupabase;
 const form=document.getElementById('loginForm'),msg=document.getElementById('msg'),btn=document.getElementById('submitBtn');
-function phoneValue(v){v=v.trim().replace(/\s+/g,''); if(/^01\d{9}$/.test(v)) return '+88'+v; return v;}
-form.addEventListener('submit',async e=>{e.preventDefault();msg.textContent='';btn.disabled=true;btn.textContent='Logging in…';
- const phone=phoneValue(document.getElementById('phone').value),password=document.getElementById('password').value;
- const {error}=await client.auth.signInWithPassword({phone,password});
- if(error){msg.textContent=error.message;btn.disabled=false;btn.textContent='Login';return;}
- location.href='/';
+function phoneValue(v){v=v.trim().replace(/\s+/g,'');if(/^01\d{9}$/.test(v))return '+88'+v;return v;}
+form.addEventListener('submit',async e=>{e.preventDefault();msg.textContent='';btn.disabled=true;btn.textContent='প্রবেশ করা হচ্ছে…';
+const phone=phoneValue(document.getElementById('phone').value),password=document.getElementById('password').value;
+const {error}=await client.auth.signInWithPassword({phone,password});
+if(error){msg.textContent='মোবাইল নম্বর বা পাসওয়ার্ড সঠিক নয়।';btn.disabled=false;btn.textContent='প্রবেশ করুন';return;}
+location.href='/account';
 });
 </script></body></html>
