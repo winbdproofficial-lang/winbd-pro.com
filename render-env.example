@@ -1,0 +1,66 @@
+# WinBD Pro Render environment template
+# IMPORTANT:
+# - Do not commit real tokens/passwords/secrets.
+# - Paste real regenerated values only in Render Dashboard > Environment.
+# - If any secret was shared in chat or public places, rotate/regenerate it first.
+# - Secret Files are for plaintext files; normal app config should usually go in Environment Variables.
+
+# App
+NODE_ENV=production
+BRAND_NAME=WINBD-PRO
+PORT=
+TRUST_PROXY=false
+CORS_ORIGIN=https://win-pro-com-lgmh.onrender.com
+PUBLIC_FRONTEND_URL=https://win-pro-com-lgmh.onrender.com
+PUBLIC_API_URL=https://win-pro-com-ecyg.onrender.com
+
+# Database / auth
+DATABASE_URL=postgresql://postgres:<SUPABASE_DB_PASSWORD>@db.<PROJECT_REF>.supabase.co:5432/postgres
+DB_POOL_MAX=10
+JWT_SECRET=<LONG_RANDOM_SECRET_AT_LEAST_32_CHARS>
+JWT_EXPIRES_IN=15m
+REFRESH_TOKEN_DAYS=30
+
+# Internal backend/provider access token, if your backend checks it
+WINBD_PROVIDER_ACCESS_TOKEN=<LONG_RANDOM_INTERNAL_ACCESS_TOKEN>
+
+# Single-provider compatibility variables
+# Use these only if the backend currently reads PROVIDER_*.
+# For first test, set these to ONE provider, for example PGSoft or Pragmatic.
+PROVIDER_AGENT_ID=<PROVIDER_AGENT_ID>
+PROVIDER_API_ENDPOINT=https://<PROVIDER_API_HOST>
+PROVIDER_API_TOKEN=<PROVIDER_API_TOKEN>
+PROVIDER_SECRET_KEY=<PROVIDER_SECRET_KEY>
+PROVIDER_CALLBACK_URL=https://win-pro-com-lgmh.onrender.com/api/callback
+
+# Multi-provider variables
+# Use these if/when backend code supports provider-specific env names.
+PRAGMATIC_AGENT_ID=<PRAGMATIC_AGENT_ID>
+PRAGMATIC_API_ENDPOINT=https://ptapi.loginxgamesapi.com
+PRAGMATIC_API_TOKEN=<PRAGMATIC_API_TOKEN>
+PRAGMATIC_SECRET_KEY=<PRAGMATIC_SECRET_KEY>
+PRAGMATIC_CALLBACK_URL=https://win-pro-com-lgmh.onrender.com/api/callback
+
+PGSOFT_AGENT_ID=<PGSOFT_AGENT_ID>
+PGSOFT_API_ENDPOINT=https://ggapi.loginxgamesapi.com
+PGSOFT_API_TOKEN=<PGSOFT_API_TOKEN>
+PGSOFT_SECRET_KEY=<PGSOFT_SECRET_KEY>
+PGSOFT_CALLBACK_URL=https://win-pro-com-lgmh.onrender.com/api/callback
+
+AMATIC_AGENT_ID=<AMATIC_AGENT_ID>
+AMATIC_API_ENDPOINT=https://amapi.loginxgamesapi.com
+AMATIC_API_TOKEN=<AMATIC_API_TOKEN>
+AMATIC_SECRET_KEY=<AMATIC_SECRET_KEY>
+AMATIC_CALLBACK_URL=https://win-pro-com-lgmh.onrender.com/api/callback
+
+AMUSNET_AGENT_ID=<AMUSNET_AGENT_ID>
+AMUSNET_API_ENDPOINT=https://apiang.gitamus.net
+AMUSNET_API_TOKEN=<AMUSNET_API_TOKEN>
+AMUSNET_SECRET_KEY=<AMUSNET_SECRET_KEY>
+AMUSNET_CALLBACK_URL=https://win-pro-com-lgmh.onrender.com/api/callback
+
+# Payment / SSLCommerz
+PAYMENT_PROVIDER=sslcommerz
+SSLCOMMERZ_MODE=sandbox
+SSLCOMMERZ_STORE_ID=<SSLCOMMERZ_STORE_ID>
+SSLCOMMERZ_STORE_PASSWORD=<SSLCOMMERZ_STORE_PASSWORD>
